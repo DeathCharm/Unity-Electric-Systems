@@ -176,12 +176,12 @@ public class UES_Motor : UES_BaseModule
         moveElapsed = 0;
 
         if (loop == false)
-            isUESModuleActive = false;
+            mb_isUESModuleActive = false;
         else
         {
             ReachedNewPoint();
         }
-        if (reverseOnEnd)
+        if (reverseOnEnd && waypointCircuit != null)
             waypointCircuit.ReversePathPoints();
 
         SendTrigger(signal);

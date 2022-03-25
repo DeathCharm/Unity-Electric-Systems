@@ -14,7 +14,7 @@ namespace ARX
     {
         public float mnf_timeToTick;
         public float mnf_timeElapsed;
-        protected bool mb_active = false;
+        public bool mb_active = false;
 
         public UnityTimer() { }
         public UnityTimer(float nfTime) { Start(nfTime); }

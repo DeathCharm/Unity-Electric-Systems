@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class UES_Scratch : MonoBehaviour
 {
-    public GameObject oOtherThing;
 
-    public void OnDrawGizmos()
+    public XNode.SceneGraph sceneGraph;
+    public bool RunTest = false;
+    private void Update()
     {
-        if (oOtherThing == null)
-            return;
-        Gizmos.DrawLine(transform.position, oOtherThing.transform.position);
+
+        if (RunTest)
+        {
+            RunTest = false;
+            UES_NodeTreeParser parser = new UES_NodeTreeParser(transform, sceneGraph);
+            parser.Run();
+        }
     }
 }

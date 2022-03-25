@@ -14,7 +14,7 @@ public class UES_Sensor_Touch : UES_BaseModule
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isPowered)
+        if (!mb_isPowered)
             return;
 
         if (targetTags.Contains(collision.gameObject.tag))

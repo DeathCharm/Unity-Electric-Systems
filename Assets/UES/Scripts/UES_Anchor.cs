@@ -9,7 +9,7 @@ public class UES_Anchor : UES_BaseModule
     public override void OnPowered()
     {
         base.OnPowered();
-        foreach (UES_BaseModule mod in GetTriggerOutputs)
+        foreach (UES_BaseModule mod in uesModules.GetTriggerOutputs)
         {
             mod.gameObject.transform.Translate(delta);
         }

@@ -32,7 +32,7 @@ public class UES_Light : UES_BaseModule
 
     public override void OnFixedUpdate()
     {
-        if (isPowered || isPoweredThisFrame)
+        if (mb_isPowered || mb_isPoweredThisFrame)
             On();
         else
             Off();
@@ -59,15 +59,15 @@ public class UES_Light : UES_BaseModule
 
     public void On()
     {
-        isPoweredThisFrame = true;
-        isPowered = true;
+        mb_isPoweredThisFrame = true;
+        mb_isPowered = true;
         GetMaterial = onMaterial;
     }
 
     public void Off()
     {
-        isPoweredThisFrame = false;
-        isPowered = false;
+        mb_isPoweredThisFrame = false;
+        mb_isPowered = false;
         GetMaterial = offMaterial;
     }
 }

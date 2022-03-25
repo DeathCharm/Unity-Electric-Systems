@@ -10,10 +10,10 @@ public class UES_Sensor_Color : UES_BaseModule
         base.OnPowered(); 
         if (UES.playerColor == targetColor)
         {
-            isUESModuleActive = true;
+            mb_isUESModuleActive = true;
         }
         else
-            isUESModuleActive = false;
+            mb_isUESModuleActive = false;
     }
 
 }

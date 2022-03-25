@@ -25,12 +25,71 @@ public class UES_CustomEditor_BaseModule : Editor
         }
     }
 
-    UES_BaseModule GetTarget { get { return (UES_BaseModule)target; } }
+    //UES_BaseModule GetTarget { get { return (UES_BaseModule)target; } }
     #endregion
 
-    void SaveTarget()
+    #region Serialized Properties
+
+    
+
+
+    SerializedObject baseModuleProperty;
+
+    SerializedProperty powerLightProperty, triggerOutputProperty, triggerInputProperty,
+        powerInputProperty, powerOutputProperty;
+
+    SerializedProperty uesActiveProperty;
+    SerializedProperty poweredProperty;
+    SerializedProperty uesModuleProperty;
+    SerializedProperty modelsProperty;
+
+    UES_Light mo_powerLight { set { powerLightProperty.objectReferenceValue = value; } }
+    GameObject mo_triggerOutputModel { set { triggerOutputProperty.objectReferenceValue = value; } }
+    GameObject mo_triggerInputModel { set { triggerInputProperty.objectReferenceValue = value; } }
+    GameObject mo_powerOutputModel { set { powerOutputProperty.objectReferenceValue = value; } }
+    GameObject mo_powerInputModel { set { powerInputProperty.objectReferenceValue = value; } }
+    UES_BaseModule_AttachedModules uesModules
     {
-        EditorUtility.SetDirty(GetTarget);
+        get
+        {
+            return (UES_BaseModule_AttachedModules)uesModuleProperty.objectReferenceValue;
+        }
+    }
+
+    UES_BaseModule_CompModels models
+    {
+        get
+        {
+            return (UES_BaseModule_CompModels)modelsProperty.objectReferenceValue;
+        }
+    }
+
+    UES_BaseModule baseModule
+    {
+        get
+        {
+            return (UES_BaseModule)baseModuleProperty.targetObject;
+        }
+    }
+
+    #endregion
+
+    private void OnEnable()
+    {
+        baseModuleProperty = new SerializedObject(target);
+
+        uesActiveProperty = baseModuleProperty.FindProperty("mb_isUESModuleActive");
+        poweredProperty = baseModuleProperty.FindProperty("mb_isPowered");
+        uesModuleProperty = baseModuleProperty.FindProperty("uesModules");
+
+
+        modelsProperty = baseModuleProperty.FindProperty("models");
+        powerLightProperty = modelsProperty.FindPropertyRelative("mo_powerLight");
+        triggerOutputProperty = modelsProperty.FindPropertyRelative("mo_triggerOutputModel");
+        triggerInputProperty = modelsProperty.FindPropertyRelative("mo_triggerInputModel");
+        powerInputProperty = modelsProperty.FindPropertyRelative("mo_powerOutputModel");
+        powerOutputProperty = modelsProperty.FindPropertyRelative("mo_powerInputModel");
+
     }
 
     public override void OnInspectorGUI()
@@ -161,8 +220,7 @@ public class UES_CustomEditor_BaseModule : Editor
 
         if (mod != null)
         {
-            GetTarget.RemoveModule(mod);
-            SaveTarget();
+            uesModules.RemoveModule(mod);
         }
 
 
@@ -176,16 +234,14 @@ public class UES_CustomEditor_BaseModule : Editor
 
         if (GUI.Button(On, "On"))
         {
-            GetTarget.isUESModuleActive = true;
-            SaveTarget();
+            uesActiveProperty.boolValue = true;
         }
         else if (GUI.Button(Off, "Off"))
         {
-            GetTarget.isUESModuleActive = false;
-            SaveTarget();
+            uesActiveProperty.boolValue = false;
         }
 
-        if (GetTarget.isUESModuleActive)
+        if (uesActiveProperty.boolValue == true)
         {
             EditorGUI.DrawRect(On, Color.green);
             EditorGUI.DrawRect(Off, Color.black);
@@ -201,11 +257,10 @@ public class UES_CustomEditor_BaseModule : Editor
         GUI.Label(rect, "Power Switch");
 
     }
-
     void RunPowerLight(Rect rect)
     {
         Color c;
-        if (GetTarget.isPowered == true)
+        if (poweredProperty.boolValue == true)
             c = Color.green;
         else
             c = Color.red;
@@ -214,9 +269,8 @@ public class UES_CustomEditor_BaseModule : Editor
 
 
         rect.y -= 32;
-        GUI.Label(rect, "Power\n" + (GetTarget.isPowered ? "ON" : "Off"));
+        GUI.Label(rect, "Power\n" + (poweredProperty.boolValue ? "ON" : "Off"));
     }
-
     void SetColor(Object obj)
     {
         if (obj == null)
@@ -234,41 +288,41 @@ public class UES_CustomEditor_BaseModule : Editor
 
         GUI.Label(guide.GetNextRect(100), "Power Out Model");
         guide.NewLineByHeight(nLabelHeight);
-        SetColor(GetTarget.mo_powerOutputModel);
-        GetTarget.mo_powerOutputModel =
-            (GameObject)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), GetTarget.mo_powerOutputModel, typeof(GameObject), true);
+        SetColor(models.mo_powerOutputModel);
+        mo_powerOutputModel =
+            (GameObject)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), models.mo_powerOutputModel, typeof(GameObject), true);
         guide.NewLine();
         GUI.color = Color.white;
 
         GUI.Label(guide.GetNextRect(100), "Trigger Out Model");
         guide.NewLineByHeight(nLabelHeight);
-        SetColor(GetTarget.mo_triggerOutputModel);
-        GetTarget.mo_triggerOutputModel =
-            (GameObject)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), GetTarget.mo_triggerOutputModel, typeof(GameObject), true);
+        SetColor(models.mo_triggerOutputModel);
+        mo_triggerOutputModel =
+            (GameObject)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), models.mo_triggerOutputModel, typeof(GameObject), true);
         guide.NewLine();
         GUI.color = Color.white;
 
         GUI.Label(guide.GetNextRect(100), "Power Input Model");
         guide.NewLineByHeight(nLabelHeight);
-        SetColor(GetTarget.mo_powerInputModel);
-        GetTarget.mo_powerInputModel =
-            (GameObject)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), GetTarget.mo_powerInputModel, typeof(GameObject), true);
+        SetColor(models.mo_powerInputModel);
+        mo_powerInputModel =
+            (GameObject)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), models.mo_powerInputModel, typeof(GameObject), true);
         guide.NewLine();
         GUI.color = Color.white;
 
         GUI.Label(guide.GetNextRect(100), "Trigger Input Model");
         guide.NewLineByHeight(nLabelHeight);
-        SetColor(GetTarget.mo_triggerInputModel);
-        GetTarget.mo_triggerInputModel =
-            (GameObject)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), GetTarget.mo_triggerInputModel, typeof(GameObject), true);
+        SetColor(models.mo_triggerInputModel);
+        mo_triggerInputModel =
+            (GameObject)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), models.mo_triggerInputModel, typeof(GameObject), true);
         guide.NewLine();
         GUI.color = Color.white;
 
         GUI.Label(guide.GetNextRect(100), "Power Light Model");
         guide.NewLineByHeight(nLabelHeight);
-        SetColor(GetTarget.mo_powerLight);
-        GetTarget.mo_powerLight =
-            (UES_Light)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), GetTarget.mo_powerLight, typeof(UES_Light), true);
+        SetColor(models.mo_powerLight);
+        mo_powerLight =
+            (UES_Light)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), models.mo_powerLight, typeof(UES_Light), true);
         guide.NewLine();
         GUI.color = Color.white;
     }
@@ -280,9 +334,8 @@ public class UES_CustomEditor_BaseModule : Editor
 
         if (mod != null)
         {
-            GetTarget.AddPowerInput(mod);
-            SaveTarget();
-            SaveTarget();
+            
+            uesModules.AddPowerInput(mod);
         }
         GUI.color = Color.white;
 
@@ -290,6 +343,7 @@ public class UES_CustomEditor_BaseModule : Editor
         rect.y -= 16;
         GUI.Label(rect, "Power\nIn");
     }
+
     void RunTriggerOut(Rect rect)
     {
 
@@ -298,8 +352,7 @@ public class UES_CustomEditor_BaseModule : Editor
 
         if (mod != null)
         {
-            GetTarget.AddTriggerOutput(mod);
-            SaveTarget();
+            uesModules.AddTriggerOutput(mod);
         }
         GUI.color = Color.white;
 
@@ -314,8 +367,7 @@ public class UES_CustomEditor_BaseModule : Editor
 
         if (mod != null)
         {
-            GetTarget.AddTriggerInput(mod);
-            SaveTarget();
+            uesModules.AddTriggerInput(mod);
         }
         GUI.color = Color.white;
 
@@ -328,11 +380,9 @@ public class UES_CustomEditor_BaseModule : Editor
         GUI.color = PowerOutputColor;
         UES_BaseModule mod = (UES_BaseModule)EditorGUI.ObjectField(rect, null, typeof(UES_BaseModule), true);
 
-
         if (mod != null)
         {
-            GetTarget.AddPowerOutput(mod);
-            SaveTarget();
+            uesModules.AddPowerOutput(mod);
         }
         GUI.color = Color.white;
 

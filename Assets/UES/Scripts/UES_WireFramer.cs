@@ -10,7 +10,7 @@ public class UES_WireFramer : UES_BaseModule
     public override void OnTriggered(UES_Signal signal)
     {
         base.OnTriggered(signal);
-        foreach (UES_BaseModule mod in GetTriggerOutputs)
+        foreach (UES_BaseModule mod in uesModules.GetTriggerOutputs)
         {
             SetToWireFrame(mod.gameObject);
         }

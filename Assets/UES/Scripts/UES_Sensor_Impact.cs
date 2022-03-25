@@ -21,7 +21,7 @@ public class UES_Sensor_Impact : UES_BaseModule
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (isPowered == false)
+        if (mb_isPowered == false)
             return;
 
         float impact = collision.relativeVelocity.magnitude;

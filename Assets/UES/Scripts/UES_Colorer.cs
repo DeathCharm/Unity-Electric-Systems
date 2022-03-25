@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UES_Colorer : UES_BaseModule
 {
-    public MeshRenderer oRenderer;
+    public ARX_Script_IndividualColor oRenderer;
     public Color color = Color.green;
     public override void OnTriggered(UES_Signal signal)
     {
@@ -16,6 +16,6 @@ public class UES_Colorer : UES_BaseModule
     {
         base.OnFixedUpdate();
         if (oRenderer != null)
-            oRenderer.sharedMaterial.color = color;
+            oRenderer.mo_color = color;
     }
 }

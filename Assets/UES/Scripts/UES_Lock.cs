@@ -7,12 +7,12 @@ public class UES_Lock : UES_BaseModule
     public override void OnUpdate()
     {
         bool bAllPowerInputsActive = true;
-        foreach (UES_BaseModule power in GetPowerInputs)
+        foreach (UES_BaseModule power in uesModules.GetPowerInputs)
         {
-            if (power.isUESModuleActive == false || power.isPowered == false)
+            if (power.mb_isUESModuleActive == false || power.mb_isPowered == false)
                 bAllPowerInputsActive = false;
         }
-        isUESModuleActive = bAllPowerInputsActive;
+        mb_isUESModuleActive = bAllPowerInputsActive;
         base.OnUpdate();
     }
 }

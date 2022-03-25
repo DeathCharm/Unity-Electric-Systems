@@ -9,7 +9,7 @@ public class UES_Battery : UES_BaseModule
     public override void OnStart()
     {
         base.OnStart();
-        foreach (UES_BaseModule mod in GetPowerOutputs)
+        foreach (UES_BaseModule mod in uesModules.GetPowerOutputs)
         {
             if(mod != null)
             mod.OnPowerStart(signal);
@@ -20,7 +20,7 @@ public class UES_Battery : UES_BaseModule
     {
         Debug.Log("Triggered battery.");
         base.OnTriggered(signal);
-        isUESModuleActive = !isUESModuleActive;
+        mb_isUESModuleActive = !mb_isUESModuleActive;
     }
 
     /// <summary>
@@ -29,20 +29,20 @@ public class UES_Battery : UES_BaseModule
     /// </summary>
     public override void OnFixedUpdate()
     {
-        if (isUESModuleActive == true && HasPowerInput() == false)
+        if (mb_isUESModuleActive == true && HasPowerInput() == false)
         {
-            isPowered = true; 
-            if (mo_powerLight != null)
-                mo_powerLight.On();
+            mb_isPowered = true; 
+            if (models.mo_powerLight != null)
+                models.mo_powerLight.On();
         }
         else
         {
-            isPowered = false; 
-            if (mo_powerLight != null)
-                mo_powerLight.Off();
+            mb_isPowered = false; 
+            if (models.mo_powerLight != null)
+                models.mo_powerLight.Off();
         }
 
-        if (isPowered)
+        if (mb_isPowered)
         {
             SendPowerToModules(signal);
         }
@@ -51,12 +51,12 @@ public class UES_Battery : UES_BaseModule
 
     public override void ReceivePower(UES_Signal signal)
     {
-        isPowered = false;
+        mb_isPowered = false;
     }
 
     public override void OnPowerLost()
     {
-        isPowered = true;
+        mb_isPowered = true;
     }
 
     public override void Depower()

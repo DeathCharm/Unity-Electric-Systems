@@ -8770,7 +8770,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3309
+  m_VersionIndex: 3313
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8826,7 +8826,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8877,7 +8877,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8476989636216690480}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1347817507220a4384f3ff6f7c24546, type: 3}
   m_Name: 
@@ -11004,7 +11004,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3306
+  m_VersionIndex: 3310
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -11060,7 +11060,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11111,7 +11111,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8476989636374023420}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1347817507220a4384f3ff6f7c24546, type: 3}
   m_Name: 
@@ -13941,7 +13941,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 10ea11fdae41fcd4ba9a0d926ef95834, type: 2}
+  - {fileID: 2100000, guid: d8592f78f0aaadc4c8c320fead82e499, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13992,8 +13992,8 @@ MonoBehaviour:
   TriggerOutputs: []
   PowerOutputs: []
   PowerInputs: []
-  isPowered: 1
-  isPoweredThisFrame: 1
+  isPowered: 0
+  isPoweredThisFrame: 0
   isTriggeredThisFrame: 0
   onMaterial: {fileID: 2100000, guid: 10ea11fdae41fcd4ba9a0d926ef95834, type: 2}
   offMaterial: {fileID: 2100000, guid: d8592f78f0aaadc4c8c320fead82e499, type: 2}
@@ -17594,7 +17594,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3312
+  m_VersionIndex: 3316
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -17650,7 +17650,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17701,7 +17701,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8476989637237302780}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1347817507220a4384f3ff6f7c24546, type: 3}
   m_Name: 
@@ -19209,7 +19209,7 @@ MonoBehaviour:
   PowerOutputs: []
   PowerInputs:
   - {fileID: 0}
-  isPowered: 1
+  isPowered: 0
   isPoweredThisFrame: 0
   isTriggeredThisFrame: 0
   endPoint: {fileID: 0}

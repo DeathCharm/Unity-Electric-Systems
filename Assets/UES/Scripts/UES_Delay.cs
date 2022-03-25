@@ -21,7 +21,7 @@ public class UES_Delay : UES_BaseModule
     {
         base.OnTriggered(signal);
         timeElasped = 0;
-        isUESModuleActive = true;
+        mb_isUESModuleActive = true;
     }
 
     public override void OnPowered()
@@ -47,7 +47,7 @@ public class UES_Delay : UES_BaseModule
         if (fractionFinished >= 1)
         {
             timeElasped = 0;
-            isUESModuleActive = false;
+            mb_isUESModuleActive = false;
             SendTrigger(signal);
             SetPanelColor(Color.yellow);
         }

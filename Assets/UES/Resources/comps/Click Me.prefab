@@ -1443,27 +1443,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e095a1b38fd10d45af299896bc72e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUESModuleActive: 1
-  mo_powerInputModel: {fileID: 697793572302582387}
-  mo_triggerOutputModel: {fileID: 697793572382818218}
-  mo_powerOutputModel: {fileID: 697793572212134393}
-  mo_triggerInputModel: {fileID: 697793574026791290}
-  mo_powerLight: {fileID: 697793572166745262}
-  mo_addAll: {fileID: 0}
+  notes: Notes.
+  mb_isUESModuleActive: 1
+  mb_isPowered: 0
+  mb_isPoweredThisFrame: 0
+  mb_isTriggeredThisFrame: 0
   mo_addTriggerOut: {fileID: 0}
   mo_addPowerOut: {fileID: 0}
   mo_addPowerIn: {fileID: 0}
   mo_removeTriggerOut: {fileID: 0}
   mo_removePowerOut: {fileID: 0}
   mo_removePowerIn: {fileID: 0}
-  TriggerOutputs:
-  - {fileID: 0}
+  TriggerOutputs: []
   PowerOutputs: []
-  PowerInputs:
-  - {fileID: 0}
-  isPowered: 0
-  isPoweredThisFrame: 0
-  isTriggeredThisFrame: 0
+  PowerInputs: []
+  mb_createWires: 0
+  mo_wireRoot: {fileID: 0}
+  moa_wires: []
+  mo_addAllModels: {fileID: 0}
+  mo_powerInputModel: {fileID: 697793572302582387}
+  mo_triggerOutputModel: {fileID: 697793572382818218}
+  mo_powerOutputModel: {fileID: 697793572212134393}
+  mo_triggerInputModel: {fileID: 697793574026791290}
+  mo_powerLight: {fileID: 697793572166745262}
   mo_buttonRenderer: {fileID: 697793572908929897}
 --- !u!1 &697793572166745261
 GameObject:
@@ -1562,13 +1564,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb55f4f1b4c406f4ea4eb0b77bbb35bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUESModuleActive: 1
-  mo_powerInputModel: {fileID: 0}
-  mo_triggerOutputModel: {fileID: 0}
-  mo_powerOutputModel: {fileID: 0}
-  mo_triggerInputModel: {fileID: 0}
-  mo_powerLight: {fileID: 0}
-  mo_addAll: {fileID: 0}
+  notes: Notes.
+  mb_isUESModuleActive: 1
+  mb_isPowered: 0
+  mb_isPoweredThisFrame: 0
+  mb_isTriggeredThisFrame: 0
   mo_addTriggerOut: {fileID: 0}
   mo_addPowerOut: {fileID: 0}
   mo_addPowerIn: {fileID: 0}
@@ -1578,9 +1578,15 @@ MonoBehaviour:
   TriggerOutputs: []
   PowerOutputs: []
   PowerInputs: []
-  isPowered: 0
-  isPoweredThisFrame: 0
-  isTriggeredThisFrame: 0
+  mb_createWires: 0
+  mo_wireRoot: {fileID: 0}
+  moa_wires: []
+  mo_addAllModels: {fileID: 0}
+  mo_powerInputModel: {fileID: 0}
+  mo_triggerOutputModel: {fileID: 0}
+  mo_powerOutputModel: {fileID: 0}
+  mo_triggerInputModel: {fileID: 0}
+  mo_powerLight: {fileID: 0}
   onMaterial: {fileID: 2100000, guid: 10ea11fdae41fcd4ba9a0d926ef95834, type: 2}
   offMaterial: {fileID: 2100000, guid: d8592f78f0aaadc4c8c320fead82e499, type: 2}
 --- !u!114 &697793572166745263

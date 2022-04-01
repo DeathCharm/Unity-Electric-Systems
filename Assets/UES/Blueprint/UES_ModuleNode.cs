@@ -5,18 +5,15 @@ using XNode;
 
 public class UES_ModuleNode : Node
 {
-    [Input] public UES_BaseModule addTriggerInput;
-    [Input] public UES_BaseModule addPowerInput;
+    [Input(ShowBackingValue.Unconnected, ConnectionType.Multiple, TypeConstraint.None)] public UES_BaseModule addTriggerInput;
+    [Input(ShowBackingValue.Unconnected, ConnectionType.Multiple, TypeConstraint.None)] public UES_BaseModule addPowerInput;
 
     [Output] public UES_BaseModule setTriggerOutput;
     [Output] public UES_BaseModule setPowerOutput;
 
-    public UES_BaseModule[] TriggerInputs;
-    public UES_BaseModule[] PowerInputs;
 
     [SerializeField]
-    [HideInInspector]
-    private UES_BaseModule owner;
+    public UES_BaseModule owner;
 
     public void SetOwningModule(UES_BaseModule mod)
     {
@@ -39,20 +36,44 @@ public class UES_ModuleNode : Node
 
     public override void OnCreateConnection(NodePort from, NodePort to)
     {
+        UES_BaseModule modFrom = ((UES_ModuleNode)from.node).owner;
+        UES_BaseModule modTo = ((UES_ModuleNode)to.node).owner;
+
+        
+        if(owner == modFrom)
         if (from.fieldName == "setTriggerOutput" && to.fieldName == "addTriggerInput")
         {
-            Debug.Log("Setting Trigger output");
+            Debug.Log("Setting Trigger from " + modFrom.name + " to " + modTo.name);
+            modTo.AddTriggerInput(modFrom);
+
         }
         else if (from.fieldName == "setPowerOutput" && to.fieldName == "addPowerInput")
         {
-            Debug.Log("Setting Power output.");
+            Debug.Log("Setting Power from " + modFrom.name + " to " + modTo.name);
+                modTo.AddPowerInput(modFrom);
         }
         else
             from.Disconnect(to);
     }
 
-    public override void OnRemoveConnection(NodePort port)
+    public override void OnRemoveConnection(NodePort port, NodePort that)
     {
-        base.OnRemoveConnection(port);
+        UES_BaseModule portModule = ((UES_ModuleNode)port.node).owner;
+        UES_BaseModule otherModule = ((UES_ModuleNode)that.node).owner;
+
+        Debug.Log("Sensing detatchment of " + portModule.name + " from " + otherModule.name);
+
+        if (port.fieldName == "addTriggerInput")
+        {
+            Debug.Log("Disconnecting " + name + "'s Trigger from " + otherModule.name);
+            otherModule.RemoveTriggerOutput(owner);
+        }
+        else if (port.fieldName == "addPowerInput")
+        {
+            Debug.Log("Disconnecting " + name + "'s Power from " + otherModule.name);
+            otherModule.RemovePowerOutput(owner);
+        }
+
+        base.OnRemoveConnection(port, that);
     }
 }

@@ -9,7 +9,7 @@ public class UES_Battery : UES_BaseModule
     public override void OnStart()
     {
         base.OnStart();
-        foreach (UES_BaseModule mod in uesModules.GetPowerOutputs)
+        foreach (UES_BaseModule mod in GetPowerOutputs)
         {
             if(mod != null)
             mod.OnPowerStart(signal);
@@ -32,14 +32,14 @@ public class UES_Battery : UES_BaseModule
         if (mb_isUESModuleActive == true && HasPowerInput() == false)
         {
             mb_isPowered = true; 
-            if (models.mo_powerLight != null)
-                models.mo_powerLight.On();
+            if (mo_powerLight != null)
+                mo_powerLight.On();
         }
         else
         {
             mb_isPowered = false; 
-            if (models.mo_powerLight != null)
-                models.mo_powerLight.Off();
+            if (mo_powerLight != null)
+                mo_powerLight.Off();
         }
 
         if (mb_isPowered)

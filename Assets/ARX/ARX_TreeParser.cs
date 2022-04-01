@@ -8,7 +8,6 @@ using UnityEngine;
 /// <typeparam name="T"></typeparam>
 public abstract class ARX_TreeParser<T>
 {
-
     public ARX_TreeParser(T start)
     {
         obj = start;
@@ -18,8 +17,10 @@ public abstract class ARX_TreeParser<T>
     public T obj;
     protected T firstGiven;
 
-    private int gridX = 0;
-    private int gridY = 0;
+    public string GetGridPosition { get { return "(" + gridX + ", " + gridY + ")"; } }
+
+    public int gridX = 0;
+    public int gridY = 0;
 
     public abstract T GetChild(T target);
     public abstract T GetSibling(T target);
@@ -28,6 +29,7 @@ public abstract class ARX_TreeParser<T>
     public abstract bool IsVoid(T target);
 
     public abstract bool IsEqual(T one, T two);
+    public abstract bool IsValidGridMovement(T to);
     public virtual void OnParseStart(T target) { }
     public virtual void OnParseEnd(T target) { }
 
@@ -49,10 +51,19 @@ public abstract class ARX_TreeParser<T>
         //Loop to here when acting on a new target
         while (true)
         {
+            if (gridX < 0)
+            {
+
+                Debug.Log("Parse at index less than zero. " + GetGridPosition);
+                OnParseEnd(obj);
+                return;
+            }
             //If the target is void, return
             if (IsVoid(obj))
+            {
+                Debug.Log("Parse ended due to void object at " + GetGridPosition);
                 return;
-
+            }
             //Act on the target
             ActOnObject(obj);
 
@@ -62,7 +73,11 @@ public abstract class ARX_TreeParser<T>
             //If target has a child, set as target and loop
             if (IsVoid(child) == false)
             {
-                gridX++;
+                if (IsValidGridMovement(child))
+                {
+                    gridX++;
+                }
+                Debug.Log("Found child at " + GetGridPosition);
                 OnChildFound(obj, child);
                 obj = child;
                 continue;
@@ -70,6 +85,7 @@ public abstract class ARX_TreeParser<T>
             //If target has no child, do nothing 
             else
             {
+                Debug.Log("Found no child of " + GetGridPosition);
                 //Intentionally blank
                 OnNoChildFound(obj);
             }
@@ -79,7 +95,12 @@ public abstract class ARX_TreeParser<T>
             //If sibling found, set as target and loop
             if (IsVoid(sibling) == false)
             {
-                gridY++;
+
+                if (IsValidGridMovement(sibling))
+                {
+                    gridY++;
+                }
+                Debug.Log("Found sibling at " + GetGridPosition);
                 OnSiblingFound(obj, sibling);
                 obj = sibling;
                 continue;
@@ -91,12 +112,13 @@ public abstract class ARX_TreeParser<T>
                 //If target is the first given object, return
                 if (IsEqual(obj, firstGiven))
                 {
+                    Debug.Log("Navigated back to " + GetGridPosition + ". Ending Parse.");
                     OnParseEnd(obj);
                     return;
                 }
 
                 //Else, get parent of target
-
+                Debug.Log("No sibling found of " + GetGridPosition);
                 OnNoSiblingFound(obj);
 
                 //Loop backwards until a parent with a sibling is found or a void parent is found
@@ -106,6 +128,7 @@ public abstract class ARX_TreeParser<T>
                     //If no parent, return
                     if (IsVoid(parent))
                     {
+                        Debug.Log("No parent found for " + GetGridPosition + ". Ending Parse.");
                         OnNoParentFound(obj);
                         OnParseEnd(obj);
                         return;
@@ -114,30 +137,40 @@ public abstract class ARX_TreeParser<T>
                     else
                     {
                         T parentSibling = GetSibling(parent);
-                        if (IsVoid(parentSibling))
+                        //If the parent's sibling was found
+                        if (IsVoid(parentSibling) == false)
                         {
-                            //If no parent sibling found, navigate backwards to parent
-                            gridX--;
-                            OnNavigateBackOneLevel(obj, parent);
-                            obj = parent;
-                            continue;
-                        }
-                        //Else if parent sibling found, set as target and loop
-                        else
-                        {
-                            gridX--;
-                            gridY++;
+                            if (IsValidGridMovement(parentSibling))
+                            {
+                                gridX--;
+                                gridY++;
+                            }
+                            Debug.Log("Found parent sibling at " + GetGridPosition);
                             OnParentSiblingFound(parentSibling, obj);
                             obj = parentSibling;
                             break;
                         }
+                        //Else If no parent sibling found, navigate backwards to parent
+                        else
+                        {
+                            if (IsValidGridMovement(parent))
+                            {
+                                gridX--;
+                            }
+                            Debug.Log("No parent sibling found for " + GetGridPosition + ". Navigating back to parent.");
+                            OnNavigateBackOneLevel(obj, parent);
+                            obj = parent;
+                            continue;
+
+                        }
                     }
                 }
+
 
             }
         }
 
-
+        Debug.Log("Ended parse naturally. This should never occur.");
     }
 
 }

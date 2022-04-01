@@ -10,7 +10,7 @@ public class UES_Destroyer : UES_BaseModule
     public override void OnTriggered(UES_Signal signal)
     {
         base.OnTriggered(signal);
-        foreach (UES_BaseModule obj in uesModules.GetTriggerOutputs)
+        foreach (UES_BaseModule obj in GetTriggerOutputs)
         {
             obj.OnDemolished();
         }

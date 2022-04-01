@@ -27,12 +27,12 @@ public class UES_Array : UES_BaseModule
         get
         {
             if (arrayTarget == ArrayTarget.Power)
-                return uesModules.GetPowerOutputs.Count;
+                return GetPowerOutputs.Count;
             else if (arrayTarget == ArrayTarget.Trigger)
-                return uesModules.GetTriggerOutputs.Count;
+                return GetTriggerOutputs.Count;
             else
             {
-                return uesModules.GetPowerOutputs.Count < uesModules.GetTriggerOutputs.Count ? uesModules.GetPowerOutputs.Count : uesModules.GetTriggerOutputs.Count;
+                return GetPowerOutputs.Count < GetTriggerOutputs.Count ? GetPowerOutputs.Count : GetTriggerOutputs.Count;
             }
         }
     }
@@ -82,7 +82,7 @@ public class UES_Array : UES_BaseModule
     {
         UES_BaseModule targetArrayMod = GetPowerModule(targetIndex);
 
-        foreach (UES_BaseModule powerOutput in uesModules.GetPowerOutputs)
+        foreach (UES_BaseModule powerOutput in GetPowerOutputs)
         {
             if (powerOutput == null)
                 continue;
@@ -110,14 +110,14 @@ public class UES_Array : UES_BaseModule
             {
                 targetIndex++;
 
-                if (targetIndex >= uesModules.GetTriggerOutputs.Count || targetIndex >= GetLights.Length)
+                if (targetIndex >= GetTriggerOutputs.Count || targetIndex >= GetLights.Length)
                 {
                     targetIndex = 0;
                 }
             }
             else if (arrayTarget == ArrayTarget.Power)
             {
-                if (targetIndex >= uesModules.GetPowerOutputs.Count || targetIndex >= GetLights.Length)
+                if (targetIndex >= GetPowerOutputs.Count || targetIndex >= GetLights.Length)
                 {
                     targetIndex = 0;
                 }
@@ -126,7 +126,7 @@ public class UES_Array : UES_BaseModule
             {
                 targetIndex++;
 
-                if (targetIndex >= uesModules.GetTriggerOutputs.Count || targetIndex >= GetLights.Length || targetIndex >= uesModules.GetPowerOutputs.Count)
+                if (targetIndex >= GetTriggerOutputs.Count || targetIndex >= GetLights.Length || targetIndex >= GetPowerOutputs.Count)
                 {
                     targetIndex = 0;
                 }
@@ -168,20 +168,20 @@ public class UES_Array : UES_BaseModule
 
     public UES_BaseModule GetTriggerModule(int index)
     {
-        List<UES_BaseModule> triggers = uesModules.GetTriggerOutputs;
+        List<UES_BaseModule> triggers = GetTriggerOutputs;
         if (index >= triggers.Count || index < 0)
             return null;
 
-        return uesModules.GetTriggerOutputs[index];
+        return GetTriggerOutputs[index];
     }
 
     public UES_BaseModule GetPowerModule(int index)
     {
-        List<UES_BaseModule> triggers = uesModules.GetPowerOutputs;
+        List<UES_BaseModule> triggers = GetPowerOutputs;
         if (index >= triggers.Count || index < 0)
             return null;
 
-        return uesModules.GetPowerOutputs[index];
+        return GetPowerOutputs[index];
     }
 
     public override void SendTrigger(UES_Signal signal)

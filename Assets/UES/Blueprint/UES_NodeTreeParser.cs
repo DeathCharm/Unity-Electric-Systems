@@ -8,43 +8,105 @@ using XNode;
 
 public class UES_NodeTreeParser : QuickUnityTreeParser
     {
-    public UES_NodeTreeParser(Transform oRoot, SceneGraph oGraph) : base(NodeAction, oRoot)
+    public UES_NodeTreeParser(Transform oRoot, SceneGraph oGraph) : base(oRoot)
     {
         mo_graph = oGraph;
     }
 
     static SceneGraph mo_graph;
-    static float x = 0, y = 0, nfNodeWith = 275, nfNodeHeight = 150;
+    static float nfNodeWith = 275, nfNodeHeight = 200;
 
-    public static void NodeAction(Transform trans) 
+    Dictionary<UES_BaseModule, UES_ModuleNode> nodeDictionary = new Dictionary<UES_BaseModule, UES_ModuleNode>();
+
+    enum ConnectionType { Trigger, Power };
+
+    public override bool IsValidGridMovement(Transform to)
     {
-        Node node = mo_graph.graph.AddNode<UES_ModuleNode>();
-        node.position = new Vector2(x, y);
+        if (to.GetComponent<UES_BaseModule>() != null)
+            return true;
+        return false;
     }
 
-    public override void OnChildFound(Transform parent, Transform child)
+    public override void ActOnObject(Transform target)
     {
-        x += nfNodeWith;
-    }
+        //Only create nodes for with a UES_BaseModule component
+       UES_BaseModule module = target.GetComponent<UES_BaseModule>();
+        if (module == null)
+            return;
 
-    public override void OnSiblingFound(Transform elder, Transform younger)
-    {
-        y += nfNodeHeight;
-    }
+        //Create a node for the module and save it to the dictionary
+        UES_ModuleNode node = mo_graph.graph.AddNode<UES_ModuleNode>();
+        node.position = new Vector2(gridX * nfNodeWith, gridY * nfNodeHeight);
+        node.name = "UES Module (" + gridX + ", " + gridY + ")";
+        target.name = node.name;
 
-    public override void OnParentSiblingFound(Transform uncle, Transform nephew)
-    {
-        x -= nfNodeWith;
-        y += nfNodeHeight;
-    }
+        
 
-    public override void OnNavigateBackOneLevel(Transform from, Transform to)
-    {
-        x -= nfNodeWith;
+        node.SetOwningModule(module);
+
+        nodeDictionary[module] = node;
+
+        Debug.Log("Creating node for " + node.name);
     }
 
     public override void OnParseEnd(Transform target)
     {
-        x = 0; y = 0;
+        Debug.Log("Ending parse on " + target.name);
+
+        //For each module in the node dictionary
+        foreach (UES_BaseModule mod in nodeDictionary.Keys)
+        {
+            //For each connection output(trigger and power), get the connected node
+            CreateConnections(mod, mod.GetPowerOutputs, ConnectionType.Power);
+            CreateConnections(mod, mod.GetTriggerOutputs, ConnectionType.Trigger);
+        }
     }
+
+    void CreateConnections(UES_BaseModule mod, List<UES_BaseModule> oaMods, ConnectionType eType)
+    {
+        UES_ModuleNode thisNode = nodeDictionary[mod];
+
+        foreach (UES_BaseModule m in oaMods)
+        {
+            UES_ModuleNode other = nodeDictionary[m];
+
+            if (eType == ConnectionType.Trigger)
+            {
+                //Get the NodePorts for setConnection and addConnection
+                NodePort setPort = thisNode.GetPort("setTriggerOutput");
+                NodePort addPort = other.GetPort("addTriggerInput");
+                setPort.Connect(addPort);
+                addPort.Connect(setPort);
+            }
+            else if (eType == ConnectionType.Power)
+            {
+                NodePort setPort = thisNode.GetPort("setPowerOutput");
+                NodePort addPort = other.GetPort("addPowerInput");
+                setPort.Connect(addPort);
+                addPort.Connect(setPort);
+            }
+        }
+    }
+
+    public override void OnChildFound(Transform parent, Transform child)
+    {
+
+    }
+
+    public override void OnSiblingFound(Transform elder, Transform younger)
+    {
+
+    }
+
+    public override void OnParentSiblingFound(Transform uncle, Transform nephew)
+    {
+
+    }
+
+    public override void OnNavigateBackOneLevel(Transform from, Transform to)
+    {
+
+    }
+
+    
 }

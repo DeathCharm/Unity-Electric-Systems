@@ -14,6 +14,7 @@ public class UES_Scratch : MonoBehaviour
         if (RunTest)
         {
             RunTest = false;
+            sceneGraph.graph.Clear();
             UES_NodeTreeParser parser = new UES_NodeTreeParser(transform, sceneGraph);
             parser.Run();
         }

@@ -53,6 +53,12 @@ public class UES_WireRope : MonoBehaviour
         }
         if (mo_endObject != null && ropeLocalPositions.Count < 2)
         {
+            ropeLocalPositions.Add(Vector3.zero);
+        }
+        if (mo_endObject != null && ropeLocalPositions.Count > 1)
+        {
+            int nLastPosition = ropeLocalPositions.Count - 1;
+            ropeLocalPositions.Remove(ropeLocalPositions[nLastPosition]);
             Vector3 dif = mo_endObject.transform.position - transform.position;
             ropeLocalPositions.Add(dif);
         }

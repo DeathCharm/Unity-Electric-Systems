@@ -31,11 +31,11 @@ public class UES_BasicMiniComponents : MonoBehaviour
         bufTriggerInput.transform.SetParent(mod.transform);
         bufPowerLight.transform.SetParent(mod.transform);
 
-        mod.models.mo_powerOutputModel = bufPowerOutput.gameObject;
-        mod.models.mo_powerInputModel = bufPowerInput.gameObject;
-        mod.models.mo_triggerOutputModel = bufTriggerOutput.gameObject;
-        mod.models.mo_triggerInputModel = bufTriggerInput.gameObject;
-        mod.models.mo_powerLight = bufPowerLight.GetComponent<UES_Light>();
+        mod.mo_powerOutputModel = bufPowerOutput.gameObject;
+        mod.mo_powerInputModel = bufPowerInput.gameObject;
+        mod.mo_triggerOutputModel = bufTriggerOutput.gameObject;
+        mod.mo_triggerInputModel = bufTriggerInput.gameObject;
+        mod.mo_powerLight = bufPowerLight.GetComponent<UES_Light>();
 
         bufPowerLight.transform.localPosition = Vector3.zero;
         bufPowerOutput.transform.localPosition = Vector3.zero;

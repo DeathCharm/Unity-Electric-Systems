@@ -7,14 +7,17 @@ using UnityEngine;
 
 /// <summary>
 /// A parser for unity components that uses the transform component to navigate through
-/// child transforms. Constructor takes a delegate to act on leaf nodes.
+/// child transforms. 
 /// </summary>
 public class QuickUnityTreeParser : ARX_TreeParser<UnityEngine.Transform>
 {
-    public delegate void LeafNodeAction(UnityEngine.Transform component);
-    public LeafNodeAction actOnLeaf;
+    public QuickUnityTreeParser(Transform start) : base(start){ }
 
-    public QuickUnityTreeParser(LeafNodeAction action, Transform start) : base(start){ actOnLeaf = action; }
+    public override bool IsValidGridMovement(Transform to)
+    {
+
+        return true;
+    }
 
     public override bool IsEqual(Transform one, Transform two)
     {
@@ -57,6 +60,6 @@ public class QuickUnityTreeParser : ARX_TreeParser<UnityEngine.Transform>
 
     public override void ActOnObject(Transform target)
     {
-        actOnLeaf(target);
+
     }
 }

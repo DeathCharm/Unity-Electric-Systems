@@ -10,12 +10,10 @@ public abstract class ARX_TreeParser<T>
 {
     public ARX_TreeParser(T start)
     {
-        obj = start;
-        firstGiven = start;
+        rootObject = start;
     }
 
-    public T obj;
-    protected T firstGiven;
+    public T rootObject;
 
     public string GetGridPosition { get { return "(" + gridX + ", " + gridY + ")"; } }
 
@@ -47,30 +45,27 @@ public abstract class ARX_TreeParser<T>
         gridX = 0;
         gridY = 0;
 
-        OnParseStart(obj);
+        T targetObject = rootObject;
+
+        OnParseStart(targetObject);
         //Loop to here when acting on a new target
+
+        ///NAVIGATION LOOP START
         while (true)
         {
-            if (gridX < 0)
-            {
-
-                Debug.Log("Parse at index less than zero. " + GetGridPosition);
-                OnParseEnd(obj);
-                return;
-            }
             //If the target is void, return
-            if (IsVoid(obj))
+            if (IsVoid(targetObject))
             {
                 Debug.Log("Parse ended due to void object at " + GetGridPosition);
                 return;
             }
             //Act on the target
-            ActOnObject(obj);
+            ActOnObject(targetObject);
 
             //Get target's child
-            T child = GetChild(obj);
+            T child = GetChild(targetObject);
 
-            //If target has a child, set as target and loop
+            ///IF TARGET HAS A CHILD
             if (IsVoid(child) == false)
             {
                 if (IsValidGridMovement(child))
@@ -78,31 +73,30 @@ public abstract class ARX_TreeParser<T>
                     gridX++;
                 }
                 Debug.Log("Found child at " + GetGridPosition);
-                OnChildFound(obj, child);
-                obj = child;
+                OnChildFound(targetObject, child);
+                targetObject = child;
                 continue;
             }
-            //If target has no child, do nothing 
+            ///ELSE IF TARGET HAS NO CHILD
             else
             {
                 Debug.Log("Found no child of " + GetGridPosition);
                 //Intentionally blank
-                OnNoChildFound(obj);
+                OnNoChildFound(targetObject);
             }
 
             //Get target's sibling
-            T sibling = GetSibling(obj);
+            T sibling = GetSibling(targetObject);
             //If sibling found, set as target and loop
             if (IsVoid(sibling) == false)
             {
-
                 if (IsValidGridMovement(sibling))
                 {
                     gridY++;
                 }
                 Debug.Log("Found sibling at " + GetGridPosition);
-                OnSiblingFound(obj, sibling);
-                obj = sibling;
+                OnSiblingFound(targetObject, sibling);
+                targetObject = sibling;
                 continue;
             }
             //Else if no sibling,
@@ -110,33 +104,36 @@ public abstract class ARX_TreeParser<T>
             else
             {
                 //If target is the first given object, return
-                if (IsEqual(obj, firstGiven))
+                if (IsEqual(targetObject, rootObject))
                 {
                     Debug.Log("Navigated back to " + GetGridPosition + ". Ending Parse.");
-                    OnParseEnd(obj);
+                    OnParseEnd(targetObject);
                     return;
                 }
 
                 //Else, get parent of target
                 Debug.Log("No sibling found of " + GetGridPosition);
-                OnNoSiblingFound(obj);
+                OnNoSiblingFound(targetObject);
 
+                ///BACKWARDS NAVIGATION LOOP TO PARENTS START
                 //Loop backwards until a parent with a sibling is found or a void parent is found
                 while (true)
                 {
-                    T parent = GetParent(obj);
+                    T parent = GetParent(targetObject);
+
                     //If no parent, return
                     if (IsVoid(parent))
                     {
                         Debug.Log("No parent found for " + GetGridPosition + ". Ending Parse.");
-                        OnNoParentFound(obj);
-                        OnParseEnd(obj);
+                        OnNoParentFound(targetObject);
+                        OnParseEnd(targetObject);
                         return;
                     }
                     //Else if parent found, get parent's sibling
                     else
                     {
                         T parentSibling = GetSibling(parent);
+
                         //If the parent's sibling was found
                         if (IsVoid(parentSibling) == false)
                         {
@@ -146,8 +143,8 @@ public abstract class ARX_TreeParser<T>
                                 gridY++;
                             }
                             Debug.Log("Found parent sibling at " + GetGridPosition);
-                            OnParentSiblingFound(parentSibling, obj);
-                            obj = parentSibling;
+                            OnParentSiblingFound(parentSibling, targetObject);
+                            targetObject = parentSibling;
                             break;
                         }
                         //Else If no parent sibling found, navigate backwards to parent
@@ -158,18 +155,17 @@ public abstract class ARX_TreeParser<T>
                                 gridX--;
                             }
                             Debug.Log("No parent sibling found for " + GetGridPosition + ". Navigating back to parent.");
-                            OnNavigateBackOneLevel(obj, parent);
-                            obj = parent;
+                            OnNavigateBackOneLevel(targetObject, parent);
+                            targetObject = parent;
                             continue;
-
                         }
                     }
                 }
-
-
+                ///BACKWARDS NAVIGATION LOOP TO PARENTS END
             }
-        }
 
+        }
+        ///NAVIGATION LOOP END
         Debug.Log("Ended parse naturally. This should never occur.");
     }
 

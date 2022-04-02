@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7538108979361298502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06759977, y: -0.36969995, z: -0.0000009536743}
+  m_LocalPosition: {x: -0.06759983, y: -0.36970043, z: 0.0000009536743}
   m_LocalScale: {x: 0.08409308, y: 0.08409308, z: 0.08409308}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2973,25 +2973,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notes: Notes.
-  isUESModuleActive: 1
+  mb_isUESModuleActive: 1
+  mb_isPowered: 0
+  mb_isPoweredThisFrame: 0
+  mb_isTriggeredThisFrame: 0
+  mo_addAllModels: {fileID: 0}
   mo_powerInputModel: {fileID: 3078484258031597242}
   mo_triggerOutputModel: {fileID: 8932251276811993808}
   mo_powerOutputModel: {fileID: 1537126616758320710}
   mo_triggerInputModel: {fileID: 8175678992383492544}
-  mo_powerLight: {fileID: 3484462812813498301}
-  mo_addAll: {fileID: 0}
+  mo_powerLight: {fileID: 3284733800054295601}
   mo_addTriggerOut: {fileID: 0}
   mo_addPowerOut: {fileID: 0}
   mo_addPowerIn: {fileID: 0}
   mo_removeTriggerOut: {fileID: 0}
   mo_removePowerOut: {fileID: 0}
   mo_removePowerIn: {fileID: 0}
-  TriggerOutputs: []
-  PowerOutputs: []
-  PowerInputs: []
-  isPowered: 0
-  isPoweredThisFrame: 0
-  isTriggeredThisFrame: 0
+  Triggers:
+    Inputs: []
+    Outputs: []
+    owner: {fileID: 7538108979787192138}
+    _eListType: 0
+  Powers:
+    Inputs: []
+    Outputs: []
+    owner: {fileID: 7538108979787192138}
+    _eListType: 1
+  mb_createWires: 0
+  mo_wireRoot: {fileID: 0}
+  moa_wires: []
   impactThreshhold: 2
   indicator: {fileID: 9019277246147239290}
   waypointPositioner: {fileID: 7184640033436543387}
@@ -4969,15 +4979,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95111b22360f7fb40953fe98b447d96b, type: 3}
---- !u!114 &3484462812813498301 stripped
+--- !u!114 &3284733800054295601 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4485755704806819250, guid: 95111b22360f7fb40953fe98b447d96b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2562091373592010302, guid: 95111b22360f7fb40953fe98b447d96b, type: 3}
   m_PrefabInstance: {fileID: 1016643066213159439}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb55f4f1b4c406f4ea4eb0b77bbb35bd, type: 3}
+  m_Script: {fileID: 11500000, guid: b650dae534c9a184f85e3ce13ad4b365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &7211495349925440376 stripped

@@ -6859,25 +6859,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notes: Notes.
-  isUESModuleActive: 1
+  mb_isUESModuleActive: 1
+  mb_isPowered: 0
+  mb_isPoweredThisFrame: 0
+  mb_isTriggeredThisFrame: 0
+  mo_addAllModels: {fileID: 0}
   mo_powerInputModel: {fileID: 7299787989186026727}
   mo_triggerOutputModel: {fileID: 7450738433496341984}
   mo_powerOutputModel: {fileID: 1516058662480263094}
   mo_triggerInputModel: {fileID: 2956380692637104128}
-  mo_powerLight: {fileID: 7431687069756312527}
-  mo_addAll: {fileID: 0}
+  mo_powerLight: {fileID: 0}
   mo_addTriggerOut: {fileID: 0}
   mo_addPowerOut: {fileID: 0}
   mo_addPowerIn: {fileID: 0}
   mo_removeTriggerOut: {fileID: 0}
   mo_removePowerOut: {fileID: 0}
   mo_removePowerIn: {fileID: 0}
-  TriggerOutputs: []
-  PowerOutputs: []
-  PowerInputs: []
-  isPowered: 0
-  isPoweredThisFrame: 0
-  isTriggeredThisFrame: 0
+  Triggers:
+    Inputs: []
+    Outputs: []
+    owner: {fileID: 6505540647683154086}
+    _eListType: 0
+  Powers:
+    Inputs: []
+    Outputs: []
+    owner: {fileID: 6505540647683154086}
+    _eListType: 1
+  mb_createWires: 0
+  mo_wireRoot: {fileID: 0}
+  moa_wires: []
 --- !u!1 &2956380692637104128
 GameObject:
   m_ObjectHideFlags: 0
@@ -25618,7 +25628,7 @@ GameObject:
   - component: {fileID: 3731328305651500357}
   - component: {fileID: 2843711967172323392}
   - component: {fileID: 6869889417753115460}
-  - component: {fileID: 7431687069756312527}
+  - component: {fileID: 292130060444918323}
   - component: {fileID: 797121121892487889}
   m_Layer: 0
   m_Name: On/Off Light
@@ -25692,7 +25702,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7431687069756312527
+--- !u!114 &292130060444918323
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25701,29 +25711,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9091055947550911083}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb55f4f1b4c406f4ea4eb0b77bbb35bd, type: 3}
+  m_Script: {fileID: 11500000, guid: b650dae534c9a184f85e3ce13ad4b365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notes: Notes.
-  isUESModuleActive: 1
-  mo_powerInputModel: {fileID: 0}
-  mo_triggerOutputModel: {fileID: 0}
-  mo_powerOutputModel: {fileID: 0}
-  mo_triggerInputModel: {fileID: 0}
-  mo_powerLight: {fileID: 0}
-  mo_addAll: {fileID: 0}
-  mo_addTriggerOut: {fileID: 0}
-  mo_addPowerOut: {fileID: 0}
-  mo_addPowerIn: {fileID: 0}
-  mo_removeTriggerOut: {fileID: 0}
-  mo_removePowerOut: {fileID: 0}
-  mo_removePowerIn: {fileID: 0}
-  TriggerOutputs: []
-  PowerOutputs: []
-  PowerInputs: []
   isPowered: 0
   isPoweredThisFrame: 0
-  isTriggeredThisFrame: 0
   onMaterial: {fileID: 2100000, guid: 10ea11fdae41fcd4ba9a0d926ef95834, type: 2}
   offMaterial: {fileID: 2100000, guid: d8592f78f0aaadc4c8c320fead82e499, type: 2}
 --- !u!114 &797121121892487889

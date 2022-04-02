@@ -9,7 +9,7 @@ public class UES_PhysicsAction : UES_BaseModule
     public ForceMode forceMode = ForceMode.Impulse;
     public Vector3 force = new Vector3(0, 4, 0);
 
-    public UES_Light realImpulse, realAccel, unrealImpulse, unrealAccel;
+    public UES_IndicatorLight realImpulse, realAccel, unrealImpulse, unrealAccel;
 
     public override void OnTriggered(UES_Signal signal)
     {

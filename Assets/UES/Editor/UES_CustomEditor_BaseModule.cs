@@ -37,18 +37,19 @@ public class UES_CustomEditor_BaseModule : Editor
     SerializedProperty uesActiveProperty;
     SerializedProperty poweredProperty;
 
-    UES_Light mo_powerLight { set { powerLightProperty.objectReferenceValue = value; }
-        get { return (UES_Light)powerLightProperty.objectReferenceValue; }
+    UES_IndicatorLight mo_powerLight { set { 
+            powerLightProperty.SetValue(value); }
+        get { return powerLightProperty.objectReferenceValue as UES_IndicatorLight; }
     }
-    GameObject mo_triggerOutputModel { set { triggerOutputProperty.objectReferenceValue = value; }
+    GameObject mo_triggerOutputModel { set { triggerOutputProperty.SetValue(value); }
         get { return (GameObject)triggerOutputProperty.objectReferenceValue; }
     }
-    GameObject mo_triggerInputModel { set { triggerInputProperty.objectReferenceValue = value; }
+    GameObject mo_triggerInputModel { set { triggerInputProperty.SetValue(value); }
         get { return (GameObject)triggerInputProperty.objectReferenceValue; }
     }
-    GameObject mo_powerOutputModel { set { powerOutputProperty.objectReferenceValue = value; } 
+    GameObject mo_powerOutputModel { set { powerOutputProperty.SetValue(value); } 
         get { return (GameObject)powerOutputProperty.objectReferenceValue; } }
-    GameObject mo_powerInputModel { set { powerInputProperty.objectReferenceValue = value; }
+    GameObject mo_powerInputModel { set { powerInputProperty.SetValue(value); }
         get { return (GameObject)powerInputProperty.objectReferenceValue; } }
  
     UES_BaseModule baseModule
@@ -69,30 +70,10 @@ public class UES_CustomEditor_BaseModule : Editor
         poweredProperty = baseModuleProperty.FindProperty("mb_isPowered");
 
         powerLightProperty = baseModuleProperty.FindProperty("mo_powerLight");
-        if (powerLightProperty == null)
-        {
-            Debug.LogError("Power light property ws null.");
-        }
         triggerOutputProperty = baseModuleProperty.FindProperty("mo_triggerOutputModel");
-        if (triggerOutputProperty == null)
-        {
-            Debug.LogError("Trigger Output property ws null.");
-        }
         triggerInputProperty = baseModuleProperty.FindProperty("mo_triggerInputModel");
-        if (triggerInputProperty == null)
-        {
-            Debug.LogError("Trigger Input property ws null.");
-        }
         powerInputProperty = baseModuleProperty.FindProperty("mo_powerInputModel");
-        if (powerInputProperty == null)
-        {
-            Debug.LogError("Power Input property ws null.");
-        }
         powerOutputProperty = baseModuleProperty.FindProperty("mo_powerOutputModel");
-        if (powerOutputProperty == null)
-        {
-            Debug.LogError("Power Output property ws null.");
-        }
 
     }
 
@@ -290,7 +271,7 @@ public class UES_CustomEditor_BaseModule : Editor
         int nHeight = ((int)rect.height / nRows) - nLabelHeight;
         RectGuide guide = new RectGuide(rect, nHeight);
 
-        GUI.Label(guide.GetNextRect(100), "Power Out Model");
+        GUI.Label(guide.GetNextRect(100), "Power Out");
         guide.NewLineByHeight(nLabelHeight);
         SetColor(mo_powerOutputModel);
         mo_powerOutputModel =
@@ -298,7 +279,7 @@ public class UES_CustomEditor_BaseModule : Editor
         guide.NewLine();
         GUI.color = Color.white;
 
-        GUI.Label(guide.GetNextRect(100), "Trigger Out Model");
+        GUI.Label(guide.GetNextRect(100), "Trigger Out");
         guide.NewLineByHeight(nLabelHeight);
         SetColor(mo_triggerOutputModel);
         mo_triggerOutputModel =
@@ -306,7 +287,7 @@ public class UES_CustomEditor_BaseModule : Editor
         guide.NewLine();
         GUI.color = Color.white;
 
-        GUI.Label(guide.GetNextRect(100), "Power Input Model");
+        GUI.Label(guide.GetNextRect(100), "Power Input");
         guide.NewLineByHeight(nLabelHeight);
         SetColor(mo_powerInputModel);
         mo_powerInputModel =
@@ -314,7 +295,7 @@ public class UES_CustomEditor_BaseModule : Editor
         guide.NewLine();
         GUI.color = Color.white;
 
-        GUI.Label(guide.GetNextRect(100), "Trigger Input Model");
+        GUI.Label(guide.GetNextRect(100), "Trigger Input");
         guide.NewLineByHeight(nLabelHeight);
         SetColor(mo_triggerInputModel);
         mo_triggerInputModel =
@@ -322,11 +303,11 @@ public class UES_CustomEditor_BaseModule : Editor
         guide.NewLine();
         GUI.color = Color.white;
 
-        GUI.Label(guide.GetNextRect(100), "Power Light Model");
+        GUI.Label(guide.GetNextRect(100), "Power Light");
         guide.NewLineByHeight(nLabelHeight);
         SetColor(mo_powerLight);
         mo_powerLight =
-            (UES_Light)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), mo_powerLight, typeof(UES_Light), true);
+            (UES_IndicatorLight)EditorGUI.ObjectField(guide.GetNextRect(rect.width, nHeight), mo_powerLight, typeof(UES_IndicatorLight), true);
         guide.NewLine();
         GUI.color = Color.white;
     }

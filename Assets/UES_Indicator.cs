@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UES_Indicator : MonoBehaviour
 {
-    public UES_Light sensorLight;
+    public UES_IndicatorLight sensorLight;
 
     ARX.UnityTimer timer = new ARX.UnityTimer();
     bool bIsTicking = false;

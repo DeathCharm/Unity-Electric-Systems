@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7642529039874275703}
   - component: {fileID: 1615267208760791790}
   - component: {fileID: 8501170489054880603}
-  - component: {fileID: 4485755704806819250}
+  - component: {fileID: 2562091373592010302}
   - component: {fileID: 7570150139483884529}
   m_Layer: 0
   m_Name: On_Off Light
@@ -86,7 +86,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4485755704806819250
+--- !u!114 &2562091373592010302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,28 +95,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5464128549799528036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb55f4f1b4c406f4ea4eb0b77bbb35bd, type: 3}
+  m_Script: {fileID: 11500000, guid: b650dae534c9a184f85e3ce13ad4b365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUESModuleActive: 1
-  mo_powerInputModel: {fileID: 0}
-  mo_triggerOutputModel: {fileID: 0}
-  mo_powerOutputModel: {fileID: 0}
-  mo_triggerInputModel: {fileID: 0}
-  mo_powerLight: {fileID: 0}
-  mo_addAll: {fileID: 0}
-  mo_addTriggerOut: {fileID: 0}
-  mo_addPowerOut: {fileID: 0}
-  mo_addPowerIn: {fileID: 0}
-  mo_removeTriggerOut: {fileID: 0}
-  mo_removePowerOut: {fileID: 0}
-  mo_removePowerIn: {fileID: 0}
-  TriggerOutputs: []
-  PowerOutputs: []
-  PowerInputs: []
   isPowered: 0
   isPoweredThisFrame: 0
-  isTriggeredThisFrame: 0
   onMaterial: {fileID: 2100000, guid: 10ea11fdae41fcd4ba9a0d926ef95834, type: 2}
   offMaterial: {fileID: 2100000, guid: d8592f78f0aaadc4c8c320fead82e499, type: 2}
 --- !u!114 &7570150139483884529

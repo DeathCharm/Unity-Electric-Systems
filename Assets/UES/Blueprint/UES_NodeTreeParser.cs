@@ -62,7 +62,7 @@ public class UES_NodeTreeParser : QuickUnityTreeParser
         }
     }
 
-    void CreateConnections(UES_BaseModule mod, List<UES_BaseModule> oaMods, ConnectionType eType)
+    void CreateConnections(UES_BaseModule mod, UES_BaseModule[] oaMods, ConnectionType eType)
     {
         UES_ModuleNode thisNode = nodeDictionary[mod];
 

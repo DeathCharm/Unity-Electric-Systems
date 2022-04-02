@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class UES_ArraySlide : MonoBehaviour
 {
-    public UES_Light indicator;
+    public UES_IndicatorLight indicator;
 }

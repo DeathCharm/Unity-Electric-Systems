@@ -9,7 +9,7 @@ public class UES_Sensor_Scale : UES_BaseModule
     public float currentWdight = 0;
 
     public UES_WaypointPositioner leftTrack, rightTrack;
-    public UES_Light indicator;
+    public UES_IndicatorLight indicator;
 
     bool bIsWeightedDown = false;
 

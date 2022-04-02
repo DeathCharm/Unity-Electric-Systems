@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3196143857327936406}
   - component: {fileID: 3196143857327936405}
   - component: {fileID: 3196143857327936404}
-  - component: {fileID: 3196143857327936403}
   - component: {fileID: 1564533523470084548}
+  - component: {fileID: 7976788495635654959}
   m_Layer: 0
   m_Name: Indicator
   m_TagString: Untagged
@@ -1427,39 +1427,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &3196143857327936403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3196143857327936401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb55f4f1b4c406f4ea4eb0b77bbb35bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isUESModuleActive: 1
-  mo_powerInputModel: {fileID: 0}
-  mo_triggerOutputModel: {fileID: 0}
-  mo_powerOutputModel: {fileID: 0}
-  mo_triggerInputModel: {fileID: 0}
-  mo_powerLight: {fileID: 0}
-  mo_addAll: {fileID: 0}
-  mo_addTriggerOut: {fileID: 0}
-  mo_addPowerOut: {fileID: 0}
-  mo_addPowerIn: {fileID: 0}
-  mo_removeTriggerOut: {fileID: 0}
-  mo_removePowerOut: {fileID: 0}
-  mo_removePowerIn: {fileID: 0}
-  TriggerOutputs: []
-  PowerOutputs: []
-  PowerInputs: []
-  isPowered: 0
-  isPoweredThisFrame: 0
-  isTriggeredThisFrame: 0
-  onMaterial: {fileID: 2100000, guid: 10ea11fdae41fcd4ba9a0d926ef95834, type: 2}
-  offMaterial: {fileID: 2100000, guid: d8592f78f0aaadc4c8c320fead82e499, type: 2}
 --- !u!114 &1564533523470084548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1472,8 +1439,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2a2c48ae99c7fb438af5530f6eb259d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorLight: {fileID: 3196143857327936403}
+  sensorLight: {fileID: 7976788495635654959}
   touchLightTime: 0.2
+--- !u!114 &7976788495635654959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3196143857327936401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b650dae534c9a184f85e3ce13ad4b365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPowered: 0
+  isPoweredThisFrame: 0
+  onMaterial: {fileID: 2100000, guid: 10ea11fdae41fcd4ba9a0d926ef95834, type: 2}
+  offMaterial: {fileID: 2100000, guid: d8592f78f0aaadc4c8c320fead82e499, type: 2}
 --- !u!1 &3196143857709805746
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UES_BasicMiniComponents : MonoBehaviour
 {
-    public UES_Light powerLight;
+    public UES_IndicatorLight powerLight;
     public GameObject powerOutput, triggerOutput, powerInput, triggerInput;
 
     GameObject Clone(GameObject obj)
@@ -35,7 +35,7 @@ public class UES_BasicMiniComponents : MonoBehaviour
         mod.mo_powerInputModel = bufPowerInput.gameObject;
         mod.mo_triggerOutputModel = bufTriggerOutput.gameObject;
         mod.mo_triggerInputModel = bufTriggerInput.gameObject;
-        mod.mo_powerLight = bufPowerLight.GetComponent<UES_Light>();
+        mod.mo_powerLight = bufPowerLight.GetComponent<UES_IndicatorLight>();
 
         bufPowerLight.transform.localPosition = Vector3.zero;
         bufPowerOutput.transform.localPosition = Vector3.zero;

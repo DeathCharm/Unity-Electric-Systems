@@ -14,13 +14,30 @@ using System;
 public abstract class ARX_IOList<TModule>
 {
     [SerializeField]
-    protected List<TModule> Inputs = new List<TModule>();
+    public List<TModule> Inputs = new List<TModule>();
+    public List<TModule> GetInputs
+    {
+        get
+        {
+            if (Inputs == null) Inputs = new List<TModule>();
+            return Inputs;
+        }
+    }
 
     [SerializeField]
-    protected List<TModule> Outputs = new List<TModule>();
+    public List<TModule> Outputs = new List<TModule>();
+    public List<TModule> GetOutputs
+    {
+        get
+        {
+            if (Outputs == null) Outputs = new List<TModule>();
+            return Outputs;
+        }
+    }
 
     [SerializeField]
-    TModule owner;
+    [HideInInspector]
+    private TModule owner;
     public TModule GetOwner { get { return owner; } }
 
     public ARX_IOList(TModule oOwner) { owner = oOwner; }
@@ -32,9 +49,16 @@ public abstract class ARX_IOList<TModule>
     public abstract TModule GetNullModule();
     protected abstract List<TModule> GetInputList(TModule other);
     protected abstract List<TModule> GetOutputList(TModule other);
+    protected abstract bool IsEqual(TModule one, TModule two);
 
-    public TModule[] GetInputArray { get { return Inputs.ToArray(); } }
-    public TModule[] GetOutputArray { get { return Outputs.ToArray(); } }
+    public TModule[] GetInputArray { get {
+            if (Inputs == null)
+                Inputs = new List<TModule>();
+            return Inputs.ToArray(); } }
+    public TModule[] GetOutputArray { get {
+            if (Outputs == null)
+                Outputs = new List<TModule>();
+            return Outputs.ToArray(); } }
 
     public TModule GetInput(int index) {
         if (index < 0 || index >= Inputs.Count)
@@ -96,9 +120,43 @@ public abstract class ARX_IOList<TModule>
     /// <param name="list"></param>
     void AddSecure(TModule mod, List<TModule> list)
     {
+        if (IsEqual(mod, GetNullModule()))
+            return;
+
         if (list.Contains(mod))
             return;
         list.Add(mod);
+    }
+
+    /// <summary>
+    /// Removes null values from inputs and outputs
+    /// </summary>
+    public void Validate()
+    {
+        while (GetInputs.Contains(GetNullModule()))
+        {
+            Inputs.Remove(GetNullModule());
+        }
+
+        while (GetOutputs.Contains(GetNullModule()))
+        {
+            Outputs.Remove(GetNullModule());
+        }
+    }
+
+    public void Clear()
+    {
+        while (GetInputs.Count > 0)
+            RemoveInput(Inputs[0]);
+
+
+        while (GetOutputs.Count > 0)
+            RemoveInput(Outputs[0]);
+    }
+
+    public void SetOwner(TModule oNewOwner)
+    {
+        owner = oNewOwner;
     }
 
 }

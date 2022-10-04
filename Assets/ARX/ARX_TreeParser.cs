@@ -119,7 +119,12 @@ public abstract class ARX_TreeParser<T>
                 //Loop backwards until a parent with a sibling is found or a void parent is found
                 while (true)
                 {
-                    T parent = GetParent(targetObject);
+                    T parent = GetParent(targetObject); 
+                    
+                    if (IsValidGridMovement(parent))
+                    {
+                        gridX--;
+                    }
 
                     //If no parent, return
                     if (IsVoid(parent))
@@ -132,16 +137,17 @@ public abstract class ARX_TreeParser<T>
                     //Else if parent found, get parent's sibling
                     else
                     {
-                        T parentSibling = GetSibling(parent);
+                        T parentSibling = GetSibling(parent); 
+                        if (IsValidGridMovement(parentSibling))
+                        {
+                            gridY++;
+                        }
+
 
                         //If the parent's sibling was found
                         if (IsVoid(parentSibling) == false)
                         {
-                            if (IsValidGridMovement(parentSibling))
-                            {
-                                gridX--;
-                                gridY++;
-                            }
+                            
                             Debug.Log("Found parent sibling at " + GetGridPosition);
                             OnParentSiblingFound(parentSibling, targetObject);
                             targetObject = parentSibling;

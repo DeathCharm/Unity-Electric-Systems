@@ -22,6 +22,9 @@ public class UES_NodeTreeParser : QuickUnityTreeParser
 
     public override bool IsValidGridMovement(Transform to)
     {
+        if (to == null)
+            return false;
+
         if (to.GetComponent<UES_BaseModule>() != null)
             return true;
         return false;
